@@ -185,6 +185,8 @@ $(document).ready(function(){
 	var challengers = $("#challengers");
 	var deck = $("#deck");
 	var attack = $("#attack-button");
+	var playerSide = $("#playerSide");
+	var challengerSide = $("#challengerSide");
 	
 
 // Character Variables ///////////////////////////////////////////////////
@@ -246,10 +248,20 @@ $(document).ready(function(){
 		if(characterSelected == false){ // if the player has not yet chosen a character
 			characterSelected = true;
 
+			// assign this DOM element the status of player
+			$(this).data("status", 'player')
+
+			// assign the other elements the status of challenger if they aren't the player
+			for (var i = 0; i < $('.character').length; i++){
+				if ($('.character').data("status") != 'player'){
+					$('.character').data("status", 'challenger')
+				}
+			}
+
 			challengers.append($('.character')) // send all characters to the challenger section
 
-			charRowOne.empty(); // clear all characters from character select
-			deck.prepend(this); // send the chosen character to the deck to fight!
+			$('#character-select').empty(); // clear all characters from character select
+			$("#playerSide").prepend(this); // send the chosen character to the deck to fight!
 			$(this).addClass("player") // add player class to chosen character
 
 
@@ -259,14 +271,17 @@ $(document).ready(function(){
 			$("#text-area").prepend("Choose your opponent!")
 
 			// if the player has chosen a character but not a challenger
-		}else if (challengerSelected == false && characterSelected == true){ 
+		}else if (challengerSelected == false && characterSelected == true && $(this).data('status') != 'player'){ 
 			challengerSelected = true;
 
 			$(this).addClass("chosen-challenger") // add challenger class to chosen opponent
-			charRowOne.append(this); // send the challenger to the deck to fight!
+			$("#challengerSide").append(this); // send the challenger to the deck to fight!
 
 			// clear the text area
 			$("#text-area").empty();
+		}else if (characterSelected == true && $(this).data('status') != 'player' == 'player'){
+			console.log("display tooltip")
+			// display tooltip
 		}
 
 	});
@@ -291,7 +306,7 @@ $(document).ready(function(){
 
 			// display attack text in text area
 			$("#text-area").prepend("You attacked " + $(".chosen-challenger").data('character').name +
-			" for " + playerAttack + " damage!" + '<br>' + '<hr>')
+			" for " + playerAttack + " damage!" + '<hr>')
 
 
 			// check if player should win before counter-attack
@@ -306,7 +321,7 @@ $(document).ready(function(){
 
 			// display counter-attack text in text area
 			$("#text-area").prepend($(".chosen-challenger").data('character').name + " attacked you for " +
-			" for " + challengerAttack + " damage!" + '<br>' + '<hr>')
+			" for " + challengerAttack + " damage!" + '<hr>')
 
 
 
@@ -326,5 +341,4 @@ $(document).ready(function(){
 
 
 
-
-});
+}); // end of jQuery function. 	

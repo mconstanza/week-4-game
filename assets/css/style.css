@@ -10,22 +10,46 @@ html {
 
 body { background: transparent; }
 
-#character-select #challengers  {
-	width: 50%;
+
+img {
+
+	border: 2px solid white;
 }
 
+#character-select, #challengers  {
+	margin-top: 70px;
+}
+
+
+#deck {
+	margin-top: 70px;
+
+}
+
+#character-row-1 {
+	height: 200px;
+}
+
+
+
 #deck img{
-	width: 25%;
+	width: 100%;
 	float:left;
 }
 
-#challengers {
+#character-select img {
+	width: 40%;
 }
 
 
 #challengers img{
-	float: right;
+	width: 40%;
+	margin-left: 50%;
 
+}
+
+#challengers{
+	text-align: right;
 }
 
 nav {
@@ -38,7 +62,16 @@ nav {
 }
 
 #text-area {
-	font-color: white;
-	font-size: 12px;
+	height: 300px;
+	font-size: 16px;
+
 	background-color: white;
+	opacity: .7;
+	border: 2px solid black;
+	border-radius: 5%;
+	margin-top: 20px;
+}
+
+#text-area hr {
+	margin: 2px 0;
 }
