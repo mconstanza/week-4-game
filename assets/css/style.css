@@ -30,20 +30,18 @@ img {
 	height: 200px;
 }
 
-
-
 #deck img{
 	width: 100%;
 	float:left;
 }
 
 #character-select img {
-	width: 40%;
+	width: 50%;
 }
 
 
 #challengers img{
-	width: 40%;
+	width: 50%;
 
 }
 
