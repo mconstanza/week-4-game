@@ -44,12 +44,11 @@ img {
 
 #challengers img{
 	width: 40%;
-	margin-left: 50%;
 
 }
 
 #challengers{
-	text-align: right;
+	/*text-align: right;*/
 }
 
 nav {
@@ -74,4 +73,11 @@ nav {
 
 #text-area hr {
 	margin: 2px 0;
+}
+
+
+.character h1 {
+	font-size: 14px;
+	color: #fff;
+	position: absolute;
 }

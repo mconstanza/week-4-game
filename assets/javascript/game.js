@@ -224,20 +224,25 @@ $(document).ready(function(){
 
 		// Append characters to character select div /////////////////////////////
 
-		charSelect.append("<img id = 'michaelMcDonald' class ='character img-responsive' src='" + michaelMcDonald.image + "'>")
 		$("#michaelMcDonald").data("character", michaelMcDonald)
-
-		charSelect.append("<img id = 'hallAndOates' class ='character img-responsive' src='" + hallAndOates.image + "'>")
+		$("#michaelMcDonald h1").append($("#michaelMcDonald").data("character").hp)
+		charSelect.append($('#michaelMcDonald'))
+		
 		$("#hallAndOates").data("character", hallAndOates)
+		$("#hallAndOates h1").append($("#hallAndOates").data("character").hp)
+		charSelect.append($('#hallAndOates'))
 
-		charSelect.append("<img id = 'toto' class ='character img-responsive' src='" + toto.image + "'>")
 		$("#toto").data("character", toto)
-
-		charSelect.append("<img id = 'chrisCross' class ='character img-responsive' src='" + chrisCross.image + "'>")
+		$("#toto h1").append($("#toto").data("character").hp)
+		charSelect.append($('#toto'))
+	
 		$("#chrisCross").data("character", chrisCross)
+		$("#chrisCross h1").append($("#chrisCross").data("character").hp)
+		charSelect.append($('#chrisCross'))
 
-		charSelect.append("<img id = 'kennyLoggins' class ='character img-responsive' src='" + kennyLoggins.image + "'>")
 		$("#kennyLoggins").data("character", kennyLoggins)
+		$("#kennyLoggins h1").append($("#kennyLoggins").data("character").hp)
+		charSelect.append($('#kennyLoggins'))
 	//})
 
 
