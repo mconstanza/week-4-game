@@ -1,0 +1,44 @@
+html { 
+  background: url("../images/yacht2.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  z-index: 0;
+
+}
+
+body { background: transparent; }
+
+#character-select #challengers  {
+	width: 50%;
+}
+
+#deck img{
+	width: 25%;
+	float:left;
+}
+
+#challengers {
+}
+
+
+#challengers img{
+	float: right;
+
+}
+
+nav {
+	z-index: 1;
+	opacity: .3;
+}
+
+#title {
+	font-family: "Righteous";
+}
+
+#text-area {
+	font-color: white;
+	font-size: 12px;
+	background-color: white;
+}
