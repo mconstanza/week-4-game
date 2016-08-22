@@ -39,6 +39,7 @@ $(document).ready(function(){
 	
 	var characterSelected;
 	var challengerSelected; 
+	var currentSong;
 
 
 
@@ -75,7 +76,7 @@ $(document).ready(function(){
 		youMakeMyDreams = new sound("assets/sounds/youmakemydreams.mp3");
 
 		// Song arrays //////////////////////////////////////////////////////
-		mcDonaldSongArray = [ iKeepForgettin, whatAFoolBelieves, yaMoBeThere ];
+		mcDonaldSongArray = [ whatAFoolBelieves, yaMoBeThere ];
 		hallAndOatesSongArray = [ iCantGoForThat, richGirl, saraSmile];
 		totoSongArray = [ rosanna, holdTheLine ];
 		chrisCrossSongArray = [ rideLikeTheWind ];
@@ -156,12 +157,21 @@ $(document).ready(function(){
 			
 			$("#text-area").prepend("Challenger defeated!");
 
+			// stop the currently playing song
+			console.log("current song: " + currentSong)
+			currentSong.stop();
+
+
 			// check if there are any other characters left to become challengers
 			if ($("#challengers").children().length == 0) {
 
 				// logic to end game
 				window.setTimeout(function(){$("#text-area").empty(); 
 					$("#text-area").prepend("You win!")}, 1500)
+
+				// play victor song from player's song list
+				currentSong = $(".player").data('character').randomSong()
+				currentSong.play()
 				
 
 			}else{
@@ -215,33 +225,38 @@ $(document).ready(function(){
 		challengerSelected = false; // reset to true once an enemy is defeated 
 
 		// create character objects
-		michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 100, 10, 10);
-		hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 100, 10, 10);
-		toto = new character("Toto", totoImg, totoSongArray, 100, 10, 10);
-		chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 100, 10, 10);
-		kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 100, 10, 10);
+		michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 1000, 10, 10);
+		hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 10, 10);
+		toto = new character("Toto", totoImg, totoSongArray, 900, 10, 10);
+		chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 750, 10, 10);
+		kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 700, 10, 10);
 
 
 		// Append characters to character select div /////////////////////////////
 
 		$("#michaelMcDonald").data("character", michaelMcDonald)
-		$("#michaelMcDonald h1").append($("#michaelMcDonald").data("character").hp)
+		$("#michaelMcDonald").find('.hp').append($("#michaelMcDonald").data("character").hp)
+		$("#michaelMcDonald").find('.name').append($("#michaelMcDonald").data("character").name)
 		charSelect.append($('#michaelMcDonald'))
 		
 		$("#hallAndOates").data("character", hallAndOates)
-		$("#hallAndOates h1").append($("#hallAndOates").data("character").hp)
+		$("#hallAndOates").find('.hp').append($("#hallAndOates").data("character").hp)
+		$("#hallAndOates").find('.name').append($("#hallAndOates").data("character").name)
 		charSelect.append($('#hallAndOates'))
 
 		$("#toto").data("character", toto)
-		$("#toto h1").append($("#toto").data("character").hp)
+		$("#toto").find('.hp').append($("#toto").data("character").hp)
+		$("#toto").find('.name').append($("#toto").data("character").name)
 		charSelect.append($('#toto'))
 	
 		$("#chrisCross").data("character", chrisCross)
-		$("#chrisCross h1").append($("#chrisCross").data("character").hp)
+		$("#chrisCross").find('.hp').append($("#chrisCross").data("character").hp)
+		$("#chrisCross").find('.name').append($("#chrisCross").data("character").name)
 		charSelect.append($('#chrisCross'))
 
 		$("#kennyLoggins").data("character", kennyLoggins)
-		$("#kennyLoggins h1").append($("#kennyLoggins").data("character").hp)
+		$("#kennyLoggins").find('.hp').append($("#kennyLoggins").data("character").hp)
+		$("#kennyLoggins").find('.name').append($("#kennyLoggins").data("character").name)
 		charSelect.append($('#kennyLoggins'))
 	//})
 
@@ -281,6 +296,10 @@ $(document).ready(function(){
 
 			$(this).addClass("chosen-challenger") // add challenger class to chosen opponent
 			$("#challengerSide").append(this); // send the challenger to the deck to fight!
+
+			// play a random song from the chosen challenger's song list
+			currentSong = $(".chosen-challenger").data('character').randomSong()
+			currentSong.play()
 
 			// clear the text area
 			$("#text-area").empty();

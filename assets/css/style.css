@@ -74,8 +74,28 @@ nav {
 }
 
 
-.character h1 {
-	font-size: 14px;
+.character {
+	position: relative;
+
+}
+
+.character .name {
+	font-size: 12px;
 	color: #fff;
 	position: absolute;
+	top: 5px;
+	margin: 0 ;
+	
 }
+
+.character .hp {
+	
+	font-size: 12px;
+	color: #fff;
+	position: absolute;
+	top: 25px;
+	margin: 5px 0;
+	
+
+}
+
