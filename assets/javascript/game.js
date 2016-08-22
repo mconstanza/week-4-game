@@ -108,7 +108,10 @@ $(document).ready(function(){
 		if (gameStarted == false){
 
 			if (currentSong ){currentSong.stop();}
+			
 			gameStarted = true;
+
+			$('#playerSide').empty();
 			// create character objects
 			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 1000, 10, 10);
 			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 10, 10);
@@ -180,7 +183,7 @@ $(document).ready(function(){
 			// clear the text area
 			$("#text-area").empty();
 			
-			$("#text-area").prepend("You died!");
+			$("#text-area").prepend("<p>You died!</p>");
 			
 			// logic to end game
 
@@ -190,7 +193,7 @@ $(document).ready(function(){
 			// clear the text area
 			$("#text-area").empty();
 			
-			$("#text-area").prepend("Challenger defeated!");
+			$("#text-area").prepend("<p>Challenger defeated!</p>");
 
 			// stop the currently playing song
 			console.log("current song: " + currentSong)
@@ -202,7 +205,7 @@ $(document).ready(function(){
 
 				// logic to end game
 				window.setTimeout(function(){$("#text-area").empty(); 
-					$("#text-area").prepend("You win!")}, 1500)
+					$("#text-area").prepend("<p>You win!</p>")}, 1500)
 
 				// play victor song from player's song list
 				currentSong = $(".player").data('character').randomSong()
@@ -215,7 +218,7 @@ $(document).ready(function(){
 
 				// ask player to choose another challenger after 1.5 seconds
 				window.setTimeout(function(){$("#text-area").empty();
-					$("#text-area").prepend("Choose your opponent!")}, 1500)
+					$("#text-area").prepend("<p>Choose your opponent!</p>")}, 1500)
 			}
 
 		};
@@ -311,7 +314,7 @@ $(document).ready(function(){
 
 			// clear the text area and tell player to choose opponent
 			$("#text-area").empty();
-			$("#text-area").prepend("Choose your opponent!")
+			$("#text-area").prepend("<p>Choose your opponent!</p>")
 
 			// if the player has chosen a character but not a challenger
 		}else if (challengerSelected == false && characterSelected == true && $(this).data('status') != 'player'){ 

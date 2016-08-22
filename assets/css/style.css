@@ -69,6 +69,10 @@ nav {
 	margin-top: 20px;
 }
 
+#text-area p{
+	margin-top: 10px;
+}
+
 #text-area hr {
 	margin: 2px 0;
 }
