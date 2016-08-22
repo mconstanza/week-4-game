@@ -194,6 +194,18 @@ $(document).ready(function(){
 		}
 	}
 
+
+	var updateHP = function() {
+
+		// clear the current HP
+		$('.player').find('.hp').empty()
+		$('.chosen-challenger').find('.hp').empty()
+
+		// display the new HP
+		$('.player').find('.hp').append("\xa0 HP: "+ $('.player').data("character").hp)
+		$('.chosen-challenger').find('.hp').append("\xa0 HP: "+ $('.chosen-challenger').data("character").hp)
+	}
+
 // Initialize Sounds /////////////////////////////////////////////////////
 	soundInit()
 
@@ -336,6 +348,9 @@ $(document).ready(function(){
 			$('.chosen-challenger').data('character').hp -= playerAttack;
 			console.log("challenger hp: " + $('.chosen-challenger').data('character').hp);
 
+			// update the HP display
+			updateHP()
+
 
 			// display attack text in text area
 			textAreaCheck()
@@ -352,6 +367,9 @@ $(document).ready(function(){
 			// subtract counter-attack from player hp
 			$('.player').data('character').hp -= challengerAttack;
 			console.log("player hp: " + $('.player').data('character').hp);
+
+			// update the HP display
+			updateHP()
 
 			// display counter-attack text in text area
 			textAreaCheck()
