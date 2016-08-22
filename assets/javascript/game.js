@@ -185,6 +185,15 @@ $(document).ready(function(){
 		};
 	};
 
+	// prevents overflow in text area
+	var textAreaCheck = function(){
+		if ($('#text-area').children().length >= 18){
+			console.log($('#text-area').children().length)
+			$('#text-area').empty();
+
+		}
+	}
+
 // Initialize Sounds /////////////////////////////////////////////////////
 	soundInit()
 
@@ -329,8 +338,9 @@ $(document).ready(function(){
 
 
 			// display attack text in text area
-			$("#text-area").prepend("You attacked " + $(".chosen-challenger").data('character').name +
-			" for " + playerAttack + " damage!" + '<hr>')
+			textAreaCheck()
+			$("#text-area").prepend("<p>You attacked " + $(".chosen-challenger").data('character').name +
+			" for " + playerAttack + " damage!<hr></p>")
 
 
 			// check if player should win before counter-attack
@@ -344,8 +354,9 @@ $(document).ready(function(){
 			console.log("player hp: " + $('.player').data('character').hp);
 
 			// display counter-attack text in text area
-			$("#text-area").prepend($(".chosen-challenger").data('character').name + " attacked you for " +
-			" for " + challengerAttack + " damage!" + '<hr>')
+			textAreaCheck()
+			$("#text-area").prepend('<p>' + $(".chosen-challenger").data('character').name + " attacked you for " +
+			" for " + challengerAttack + " damage!<hr></p>")
 
 
 
