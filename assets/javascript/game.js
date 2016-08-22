@@ -37,6 +37,7 @@ $(document).ready(function(){
 
 // Game variables ///////////////////////////////////////////////////////////
 	
+	var gameStarted = false;
 	var characterSelected;
 	var challengerSelected; 
 	var currentSong;
@@ -103,37 +104,71 @@ $(document).ready(function(){
 // Logic Functions ///////////////////////////////////////////////////////////
 
 	var startGame = function() {
+
+		if (gameStarted == false){
+
+			if (currentSong ){currentSong.stop();}
+			gameStarted = true;
+			// create character objects
+			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 1000, 10, 10);
+			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 10, 10);
+			toto = new character("Toto", totoImg, totoSongArray, 900, 10, 10);
+			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 750, 10, 10);
+			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 700, 10, 10);
+
+			
+			// clear old displays
+			$(".character").find('.name').empty()
+			$(".character").find('.hp').empty()
+
+			createCharacterDiv('michaelMcDonald', michaelMcDonaldImg)
+			createCharacterDiv('hallAndOates', hallAndOatesImg)
+			createCharacterDiv('toto', totoImg)
+			createCharacterDiv('chrisCross', chrisCrossImg)
+			createCharacterDiv('kennyLoggins', kennyLogginsImg)
+
+			// $("#hallAndOates").find('.name').empty()
+			// $("#hallAndOates").find('.hp').empty()
+
+			// $("#toto").find('.name').empty()
+
+
+			// reset turn #
+			console.log("starting new game")
+			turn = 1;
+
+			characterSelected = false;
+			challengerSelected = false; // reset to true once an enemy is defeated 
+
+
+
+			// Append characters to character select div /////////////////////////////
+
+			$("#michaelMcDonald").data("character", michaelMcDonald)
+			$("#michaelMcDonald").find('.hp').append($("#michaelMcDonald").data("character").hp)
+			$("#michaelMcDonald").find('.name').append($("#michaelMcDonald").data("character").name)
+			charSelect.append($('#michaelMcDonald'))
+			
+			$("#hallAndOates").data("character", hallAndOates)
+			$("#hallAndOates").find('.hp').append($("#hallAndOates").data("character").hp)
+			$("#hallAndOates").find('.name').append($("#hallAndOates").data("character").name)
+			charSelect.append($('#hallAndOates'))
+
+			$("#toto").data("character", toto)
+			$("#toto").find('.hp').append($("#toto").data("character").hp)
+			$("#toto").find('.name').append($("#toto").data("character").name)
+			charSelect.append($('#toto'))
 		
-		// reset turn #
-		turn = 1;
+			$("#chrisCross").data("character", chrisCross)
+			$("#chrisCross").find('.hp').append($("#chrisCross").data("character").hp)
+			$("#chrisCross").find('.name').append($("#chrisCross").data("character").name)
+			charSelect.append($('#chrisCross'))
 
-		characterSelected = false;
-		challengerSelected = false; // reset to true once an enemy is defeated 
-
-		// create character objects
-		michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 100, 10, 10);
-		hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 100, 10, 10);
-		toto = new character("Toto", totoImg, totoSongArray, 100, 10, 10);
-		chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 100, 10, 10);
-		kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 100, 10, 10);
-
-
-		// Append characters to character select div /////////////////////////////
-
-		charSelect.append("<img id = 'michaelMcDonald' class ='character img-responsive' src='" + michaelMcDonald.image + "'>")
-		$("#michaelMcDonald").data("character", michaelMcDonald)
-
-		charSelect.append("<img id = 'hallAndOates' class ='character img-responsive' src='" + hallAndOates.image + "'>")
-		$("#hallAndOates").data("character", hallAndOates)
-
-		charSelect.append("<img id = 'toto' class ='character img-responsive' src='" + toto.image + "'>")
-		$("#toto").data("character", toto)
-
-		charSelect.append("<img id = 'chrisCross' class ='character img-responsive' src='" + chrisCross.image + "'>")
-		$("#chrisCross").data("character", chrisCross)
-
-		charSelect.append("<img id = 'kennyLoggins' class ='character img-responsive' src='" + kennyLoggins.image + "'>")
-		$("#kennyLoggins").data("character", kennyLoggins)
+			$("#kennyLoggins").data("character", kennyLoggins)
+			$("#kennyLoggins").find('.hp').append($("#kennyLoggins").data("character").hp)
+			$("#kennyLoggins").find('.name').append($("#kennyLoggins").data("character").name)
+			charSelect.append($('#kennyLoggins'))
+		}
 	}
 
 
@@ -172,6 +207,7 @@ $(document).ready(function(){
 				// play victor song from player's song list
 				currentSong = $(".player").data('character').randomSong()
 				currentSong.play()
+				gameStarted = false;
 				
 
 			}else{
@@ -206,6 +242,12 @@ $(document).ready(function(){
 		$('.chosen-challenger').find('.hp').append("\xa0 HP: "+ $('.chosen-challenger').data("character").hp)
 	}
 
+	var createCharacterDiv = function(id, imgsrc) {
+		$('#character-select').append("<div class ='character' id = '" + id + "'><h1 class='name'>&nbsp </h1><h1 class ='hp'>&nbsp HP: </h1></div>")
+		$('#character-select #'+ id).append("<img class='img responsive' src ='" + imgsrc + "'/>")
+		console.log($('#character-select #'+ id))
+	}
+
 // Initialize Sounds /////////////////////////////////////////////////////
 	soundInit()
 
@@ -238,52 +280,12 @@ $(document).ready(function(){
 
 // On Click Functions //////////////////////////////////////////////////
 
-	//$('#new-game').on("click", function(){
-		// reset turn #
-		turn = 1;
-
-		characterSelected = false;
-		challengerSelected = false; // reset to true once an enemy is defeated 
-
-		// create character objects
-		michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 1000, 10, 10);
-		hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 10, 10);
-		toto = new character("Toto", totoImg, totoSongArray, 900, 10, 10);
-		chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 750, 10, 10);
-		kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 700, 10, 10);
-
-
-		// Append characters to character select div /////////////////////////////
-
-		$("#michaelMcDonald").data("character", michaelMcDonald)
-		$("#michaelMcDonald").find('.hp').append($("#michaelMcDonald").data("character").hp)
-		$("#michaelMcDonald").find('.name').append($("#michaelMcDonald").data("character").name)
-		charSelect.append($('#michaelMcDonald'))
+	$('#new-game').on("click", startGame)
 		
-		$("#hallAndOates").data("character", hallAndOates)
-		$("#hallAndOates").find('.hp').append($("#hallAndOates").data("character").hp)
-		$("#hallAndOates").find('.name').append($("#hallAndOates").data("character").name)
-		charSelect.append($('#hallAndOates'))
-
-		$("#toto").data("character", toto)
-		$("#toto").find('.hp').append($("#toto").data("character").hp)
-		$("#toto").find('.name').append($("#toto").data("character").name)
-		charSelect.append($('#toto'))
-	
-		$("#chrisCross").data("character", chrisCross)
-		$("#chrisCross").find('.hp').append($("#chrisCross").data("character").hp)
-		$("#chrisCross").find('.name').append($("#chrisCross").data("character").name)
-		charSelect.append($('#chrisCross'))
-
-		$("#kennyLoggins").data("character", kennyLoggins)
-		$("#kennyLoggins").find('.hp').append($("#kennyLoggins").data("character").hp)
-		$("#kennyLoggins").find('.name').append($("#kennyLoggins").data("character").name)
-		charSelect.append($('#kennyLoggins'))
-	//})
 
 
 	// when a character's image is clicked
-	$('.character').on("click", function(){
+	$('#characterRow div').on("click", '.character', function(){
 
 		console.log("character clicked")
 		if(characterSelected == false){ // if the player has not yet chosen a character
