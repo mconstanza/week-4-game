@@ -113,11 +113,11 @@ $(document).ready(function(){
 
 			$('#playerSide').empty();
 			// create character objects
-			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 1000, 10, 10);
-			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 10, 10);
-			toto = new character("Toto", totoImg, totoSongArray, 900, 10, 10);
-			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 750, 10, 10);
-			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 700, 10, 10);
+			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 1000, 20, 50);
+			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 30, 30);
+			toto = new character("Toto", totoImg, totoSongArray, 900, 35, 25);
+			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 850, 25, 35);
+			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 500, 40, 25);
 
 			
 			// clear old displays
@@ -150,27 +150,27 @@ $(document).ready(function(){
 			$("#michaelMcDonald").data("character", michaelMcDonald)
 			$("#michaelMcDonald").find('.hp').append($("#michaelMcDonald").data("character").hp)
 			$("#michaelMcDonald").find('.name').append($("#michaelMcDonald").data("character").name)
-			charSelect.append($('#michaelMcDonald'))
+		
 			
 			$("#hallAndOates").data("character", hallAndOates)
 			$("#hallAndOates").find('.hp').append($("#hallAndOates").data("character").hp)
 			$("#hallAndOates").find('.name').append($("#hallAndOates").data("character").name)
-			charSelect.append($('#hallAndOates'))
+			
 
 			$("#toto").data("character", toto)
 			$("#toto").find('.hp').append($("#toto").data("character").hp)
 			$("#toto").find('.name').append($("#toto").data("character").name)
-			charSelect.append($('#toto'))
+
 		
 			$("#chrisCross").data("character", chrisCross)
 			$("#chrisCross").find('.hp').append($("#chrisCross").data("character").hp)
 			$("#chrisCross").find('.name').append($("#chrisCross").data("character").name)
-			charSelect.append($('#chrisCross'))
+		
 
 			$("#kennyLoggins").data("character", kennyLoggins)
 			$("#kennyLoggins").find('.hp').append($("#kennyLoggins").data("character").hp)
 			$("#kennyLoggins").find('.name').append($("#kennyLoggins").data("character").name)
-			charSelect.append($('#kennyLoggins'))
+			
 		}
 	}
 
