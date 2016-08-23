@@ -114,7 +114,7 @@ $(document).ready(function(){
 			$('#playerSide').empty();
 			// create character objects
 			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 1000, 20, 50);
-			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 30, 30);
+			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 25, 30);
 			toto = new character("Toto", totoImg, totoSongArray, 900, 35, 25);
 			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 850, 25, 35);
 			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 500, 40, 25);
@@ -281,6 +281,11 @@ $(document).ready(function(){
 	var kennyLoggins;
 
 
+
+// Intro Screen ////////////////////////////////////////////////////////
+
+
+
 // On Click Functions //////////////////////////////////////////////////
 
 	$('#new-game').on("click", startGame)
@@ -349,6 +354,21 @@ $(document).ready(function(){
 			// player attack increases each turn 
 			var playerAttack = $('.player').data('character').ap * turn;
 
+			// animate the player and challenger
+			$('.player').velocity({left: '100px'})
+			$('.chosen-challenger').velocity({opacity: .7}, 'fast');
+
+			$('.chosen-challenger img')
+					.velocity({borderColor: '#F50C0C'})
+					.velocity('reverse');
+
+			$('.chosen-challenger').velocity({opacity: 1}, 'fast');
+
+			$('.player').velocity({left: '0px'}, 'fast');
+			
+				
+			
+
 			// subtract player attack from challenger hp
 			$('.chosen-challenger').data('character').hp -= playerAttack;
 			console.log("challenger hp: " + $('.chosen-challenger').data('character').hp);
@@ -367,25 +387,42 @@ $(document).ready(function(){
 			winCheck($('.player'), $('.chosen-challenger'));
 
 			// challenger counter-attack
-			var challengerAttack = $('.chosen-challenger').data('character').cp;
+			window.setTimeout(function(){
+				var challengerAttack = $('.chosen-challenger').data('character').cp;
 
-			// subtract counter-attack from player hp
-			$('.player').data('character').hp -= challengerAttack;
-			console.log("player hp: " + $('.player').data('character').hp);
+				// animate counter-attack
 
-			// update the HP display
-			updateHP()
+				$('.chosen-challenger').velocity({left: '-100px'});
 
-			// display counter-attack text in text area
-			textAreaCheck()
-			$("#text-area").prepend('<p>' + $(".chosen-challenger").data('character').name + " attacked you for " +
-			" for " + challengerAttack + " damage!<hr></p>")
+				$('.player').velocity({opacity: .7}, 'fast');
+
+				$('.player img')
+
+					.velocity({borderColor: '#F50C0C'})
+					.velocity('reverse');
+
+				$('.player').velocity({opacity: 1}, 'fast')
+
+				$('.chosen-challenger').velocity({left: '0px'}, 'fast');
+
+				// subtract counter-attack from player hp
+				$('.player').data('character').hp -= challengerAttack;
+				console.log("player hp: " + $('.player').data('character').hp);
+
+				// update the HP display
+				updateHP()
+
+				// display counter-attack text in text area
+				textAreaCheck()
+				$("#text-area").prepend('<p>' + $(".chosen-challenger").data('character').name + " attacked you for " +
+				" for " + challengerAttack + " damage!<hr></p>")
 
 
 
-			// end of turn -- advance turn and check if game should end
-			turn += 1;
-			winCheck($('.player'), $('.chosen-challenger'));
+				// end of turn -- advance turn and check if game should end
+				turn += 1;
+				winCheck($('.player'), $('.chosen-challenger'));
+			}, 1000)
 
 			}
 
