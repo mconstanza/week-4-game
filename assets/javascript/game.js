@@ -206,6 +206,7 @@ $(document).ready(function(){
 				// logic to end game
 				window.setTimeout(function(){$("#text-area").empty(); 
 					$("#text-area").prepend("<p>You win!</p>")}, 1500)
+				winAnimation(player)
 
 				// play victor song from player's song list
 				currentSong = $(".player").data('character').randomSong()
@@ -249,6 +250,35 @@ $(document).ready(function(){
 		$('#character-select').append("<div class ='character' id = '" + id + "'><h1 class='name'>&nbsp </h1><h1 class ='hp'>&nbsp HP: </h1></div>")
 		$('#character-select #'+ id).append("<img class='img responsive' src ='" + imgsrc + "'/>")
 		console.log($('#character-select #'+ id))
+	}
+
+
+
+// Animations ////////////////////////////////////////////////////////////
+	var winAnimation = function(player, playerImg) {
+		console.log("win animation playing")
+		player.velocity({left: '200px'});
+		player.velocity(
+			{
+				translateY: 80,
+				rotateZ: "360",
+				scale: 1.5
+				
+			},
+			{
+				duration: 2000,
+				easing: 'linear',
+				loop: true
+			});
+		playerImg.velocity(
+			{
+				borderColor: '0DC0FC'
+			}, 
+			{
+				duration: 1000, 
+				easing: 'linear', 
+				loop: true
+			});
 	}
 
 // Initialize Sounds /////////////////////////////////////////////////////
@@ -298,6 +328,7 @@ $(document).ready(function(){
 		console.log("character clicked")
 		if(characterSelected == false){ // if the player has not yet chosen a character
 			characterSelected = true;
+
 
 			// assign this DOM element the status of player
 			$(this).data("status", 'player')
@@ -422,7 +453,7 @@ $(document).ready(function(){
 				// end of turn -- advance turn and check if game should end
 				turn += 1;
 				winCheck($('.player'), $('.chosen-challenger'));
-			}, 1000)
+			}, 800) // delay before counter attack animation is played
 
 			}
 
