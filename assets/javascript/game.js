@@ -41,44 +41,78 @@ $(document).ready(function(){
 	var characterSelected;
 	var challengerSelected; 
 	var currentSong;
+	var attackClicked = false
+	var turn = 1;
 
+// Define regions of game display ////////////////////////////////////////
+	var charSelect = $("#character-select");
+	var charRowOne = $("#character-row-1");
+	var charRowTwo = $("#character-row-2");
+	var challengers = $("#challengers");
+	var deck = $("#deck");
+	var attack = $("#attack-button");
+	var playerSide = $("#playerSide");
+	var challengerSide = $("#challengerSide");
+	
+
+// Character Variables ///////////////////////////////////////////////////
+
+	var characters = $('.character');
+	var player = $('.player');
+	
+
+	var michaelMcDonald;
+	var hallAndOates;
+	var toto; 
+	var chrisCross;
+	var kennyLoggins;
 
 
 // SOUND ////////////////////////////////////////////////////////////////////
 
-// Function for creating sound files
-	function sound(src) {
-	    this.sound = document.createElement("audio");
-	    this.sound.src = src;
-	    this.sound.setAttribute("preload", "auto");
-	    this.sound.setAttribute("controls", "none");
-	    this.sound.style.display = "none";
-	    document.body.appendChild(this.sound);
-	    this.play = function(){
-	        this.sound.play();
-	    }
-	    this.stop = function(){
-	        this.sound.pause();
-	    }
-	}
+// Function for creating sound files using Howl library
+
 
 	var soundInit = function() {
 
-		dangerZone = new sound("assets/sounds/dangerzone.mp3")
-		holdTheLine = new sound("assets/sounds/holdtheline.mp3")
-		iCantGoForThat = new sound("assets/sounds/icantgoforthat.mp3");
-		iKeepForgettin = new sound("assets/sounds/ikeepforgettin.mp3");
-		richGirl = new sound("assets/sounds/richgirl.mp3");
-		rideLikeTheWind = new sound("assets/sounds/ridelikethewind.mp3");
-		rosanna = new sound("assets/sounds/rosanna.mp3");
-		saraSmile = new sound("assets/sounds/sarasmile.mp3");
-	 	whatAFoolBelieves = new sound("assets/sounds/whatafoolbelieves.mp3");
-		yaMoBeThere = new sound("assets/sounds/yamobethere.mp3");
-		youMakeMyDreams = new sound("assets/sounds/youmakemydreams.mp3");
+
+		dangerZone = new Howl({
+			src: ["assets/sounds/dangerzone.mp3"]
+		});
+		holdTheLine = new Howl({
+			src: ["assets/sounds/holdtheline.mp3"]
+		});
+		iCantGoForThat = new Howl({
+			src: ["assets/sounds/icantgoforthat.mp3"]
+		});
+		iKeepForgettin = new Howl({
+			src: ["assets/sounds/ikeepforgettin.mp3"]
+		});
+		richGirl = new Howl({
+			src: ["assets/sounds/richgirl.mp3"]
+		});
+		rideLikeTheWind = new Howl({
+			src: ["assets/sounds/ridelikethewind.mp3"]
+		});
+		rosanna = new Howl({
+			src: ["assets/sounds/rosanna.mp3"]
+		});
+		saraSmile = new Howl({
+			src: ["assets/sounds/sarasmile.mp3"]
+		});
+	 	whatAFoolBelieves = new Howl({
+	 		src: ["assets/sounds/whatafoolbelieves.mp3"]
+	 	});
+		yaMoBeThere = new Howl({
+			src: ["assets/sounds/yamobethere.mp3"]
+		});
+		youMakeMyDreams = new Howl({
+			src: ["assets/sounds/youmakemydreams.mp3"]
+		});
 
 		// Song arrays //////////////////////////////////////////////////////
 		mcDonaldSongArray = [ whatAFoolBelieves, yaMoBeThere ];
-		hallAndOatesSongArray = [ iCantGoForThat, richGirl, saraSmile];
+		hallAndOatesSongArray = [ iCantGoForThat, richGirl, saraSmile, youMakeMyDreams];
 		totoSongArray = [ rosanna, holdTheLine ];
 		chrisCrossSongArray = [ rideLikeTheWind ];
 		kennyLogginsSongArray = [ dangerZone ];
@@ -107,7 +141,10 @@ $(document).ready(function(){
 
 		if (gameStarted == false){
 
-			if (currentSong ){currentSong.stop();}
+			// if (currentSong ){
+			// 	currentSong.fade(1, 0, 2000)
+				
+			// }
 			
 			gameStarted = true;
 
@@ -129,12 +166,6 @@ $(document).ready(function(){
 			createCharacterDiv('toto', totoImg)
 			createCharacterDiv('chrisCross', chrisCrossImg)
 			createCharacterDiv('kennyLoggins', kennyLogginsImg)
-
-			// $("#hallAndOates").find('.name').empty()
-			// $("#hallAndOates").find('.hp').empty()
-
-			// $("#toto").find('.name').empty()
-
 
 			// reset turn #
 			console.log("starting new game")
@@ -196,7 +227,7 @@ $(document).ready(function(){
 			$("#text-area").prepend("<p>Challenger defeated!</p>");
 
 			// stop the currently playing song
-			console.log("current song: " + currentSong)
+		
 			currentSong.stop();
 
 
@@ -270,49 +301,11 @@ $(document).ready(function(){
 				easing: 'linear',
 				loop: true
 			});
-		playerImg.velocity(
-			{
-				borderColor: '0DC0FC'
-			}, 
-			{
-				duration: 1000, 
-				easing: 'linear', 
-				loop: true
-			});
+
 	}
 
-// Initialize Sounds /////////////////////////////////////////////////////
-	soundInit()
-
-// Define regions of game display ////////////////////////////////////////
-	var charSelect = $("#character-select");
-	var charRowOne = $("#character-row-1");
-	var charRowTwo = $("#character-row-2");
-	var challengers = $("#challengers");
-	var deck = $("#deck");
-	var attack = $("#attack-button");
-	var playerSide = $("#playerSide");
-	var challengerSide = $("#challengerSide");
-	
-
-// Character Variables ///////////////////////////////////////////////////
-
-	var characters = $('.character');
-	//var challenger = $(".challenger");
-	var player = $('.player');
-	var turn = 1;
 
 
-// Create characters /////////////////////////////////////////////////////
-	var michaelMcDonald;
-	var hallAndOates;
-	var toto; 
-	var chrisCross;
-	var kennyLoggins;
-
-
-
-// Intro Screen ////////////////////////////////////////////////////////
 
 
 
@@ -328,6 +321,13 @@ $(document).ready(function(){
 		console.log("character clicked")
 		if(characterSelected == false){ // if the player has not yet chosen a character
 			characterSelected = true;
+
+
+			// Fade out the current music
+			if (currentSong ){
+				currentSong.fade(1, 0, 2000)
+				
+			}
 
 
 			// assign this DOM element the status of player
@@ -376,11 +376,12 @@ $(document).ready(function(){
 	attack.on("click", function(){
 
 		// check if player has selected both player and challenger characters
-		if(characterSelected == true && challengerSelected == true){
-			console.log("attack!")
+		if(characterSelected == true && challengerSelected == true && attackClicked == false){
+			
+			attackClicked = true;
 
-			// player's attack
-			console.log($('.player').data('character').ap)
+		// Player's Attack ////////////////////////////////////////////////////////
+			
 
 			// player attack increases each turn 
 			var playerAttack = $('.player').data('character').ap * turn;
@@ -455,6 +456,12 @@ $(document).ready(function(){
 				winCheck($('.player'), $('.chosen-challenger'));
 			}, 800) // delay before counter attack animation is played
 
+
+				// let the player click attack again after attack routine is completed
+				window.setTimeout(function(){
+					attackClicked = false;
+				}, 1200)
+
 			}
 
 		else {
@@ -462,7 +469,13 @@ $(document).ready(function(){
 		}
 	});
 
-	
+
+// Initialize Sounds /////////////////////////////////////////////////////
+console.log('starting')
+	soundInit()
+	$('#introModal').modal({backdrop: true});
+	currentSong = whatAFoolBelieves;
+	currentSong.play();
 
 
 

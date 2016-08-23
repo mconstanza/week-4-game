@@ -9,12 +9,37 @@ html {
 }
 
 
-body { background: transparent; }
+body { 
+	background: transparent; 
+	font-family: 'Righteous';
+}
 
 
 img {
 
 	border: 2px solid white;
+}
+
+
+#introModal {
+	position: fixed;
+	background: url("../images/yacht2.jpg") no-repeat center center fixed;
+}
+
+.modal-body img{
+	width: 15%;
+	margin: 0 10px;
+}
+
+.modal-content{
+	opacity: .7;
+	color: #fff;
+	font-family: 'Righteous';
+	 background-color: black;
+}
+
+#modalButtonDiv {
+	text-align: center;
 }
 
 #character-select, #challengers  {
