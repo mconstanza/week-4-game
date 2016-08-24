@@ -215,10 +215,10 @@ $(document).ready(function(){
 
 			$('#playerSide').empty();
 			// create character objects
-			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, mcDonaldSoundArray, 1000, 20, 50);
+			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, mcDonaldSoundArray, 1000, 15, 50);
 			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, hallAndOatesSoundArray, 800, 25, 30);
-			toto = new character("Toto", totoImg, totoSongArray, totoSoundArray, 900, 35, 25);
-			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, ccSoundArray, 850, 25, 35);
+			toto = new character("Toto", totoImg, totoSongArray, totoSoundArray, 900, 20, 25);
+			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, ccSoundArray, 850, 35, 35);
 			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, kennyLogginsSoundArray, 500, 40, 25);
 
 			
@@ -291,10 +291,10 @@ $(document).ready(function(){
 
 			// stop the currently playing song
 			currentSong.fade(1, 0, 800)
-			//currentSong.stop();
+
 			currentSong = currentSong = $(".player").data('character').randomSong();
-			currentSong.play();
-			//currentSong.fade(0, 1,800)
+			
+
 
 
 
@@ -306,20 +306,28 @@ $(document).ready(function(){
 					$("#text-area").prepend("<p>You win!</p>")}, 1500)
 				winAnimation(player)
 
-				// play victor song from player's song list
-				currentSong.stop();
-				currentSong = $(".player").data('character').randomSong()
+				// play victory song from player's song list
+				window.setTimeout(function(){
+					currentSong.stop();
+					currentSong = $(".player").data('character').randomSong();
+					currentSong.play();}, 800);
+				
 
-				currentSong.play();
+
+				// allow new game to be played
 				gameStarted = false;
 				
 
 			}else{
-				challengerSelected = false;
+				currentSong.play();
+				window.setTimeout(function(){
+					challengerSelected = false;}, 4000)
 
 				// ask player to choose another challenger after 1.5 seconds
-				window.setTimeout(function(){$("#text-area").empty();
-					$("#text-area").prepend("<p>Choose your opponent!</p>")}, 1500)
+				window.setTimeout(function(){
+					$("#text-area").empty();
+					$("#text-area").prepend("<p>Choose your opponent!</p>")
+				}, 4000)
 			}
 
 		};
@@ -446,11 +454,20 @@ $(document).ready(function(){
 			// play a random song from the chosen challenger's song list
 			currentSong.fade(1, 0, 800)
 			currentSong = $(".chosen-challenger").data('character').randomSong()
-			currentSong.play()
-			//currentSong.fade(0,1, 800)
+			window.setTimeout(function() {
+				currentSong.play()
+			}, 800)
 
 			// clear the text area
 			$("#text-area").empty();
+			// Fight!
+			$("#text-area").prepend("<p style='font-size: 20px'>Fight!</p>")
+			attackClicked = true;
+			window.setTimeout(function(){
+				// clear the text area
+				$("#text-area").empty();
+				attackClicked = false;
+			}, 1800)
 
 
 
