@@ -111,7 +111,7 @@ $(document).ready(function(){
 		});
 
 		// Song arrays //////////////////////////////////////////////////////
-		mcDonaldSongArray = [ whatAFoolBelieves, yaMoBeThere ];
+		mcDonaldSongArray = [ whatAFoolBelieves, yaMoBeThere, iKeepForgettin ];
 		hallAndOatesSongArray = [ iCantGoForThat, richGirl, saraSmile, youMakeMyDreams];
 		totoSongArray = [ rosanna, holdTheLine ];
 		chrisCrossSongArray = [ rideLikeTheWind ];
@@ -141,10 +141,9 @@ $(document).ready(function(){
 
 		if (gameStarted == false){
 
-			// if (currentSong ){
-			// 	currentSong.fade(1, 0, 2000)
-				
-			// }
+			$("#text-area").empty();
+			$("#text-area").prepend("<p>Choose your 'Rock' star!</p>")
+
 			
 			gameStarted = true;
 
@@ -231,6 +230,7 @@ $(document).ready(function(){
 			currentSong.stop();
 
 
+
 			// check if there are any other characters left to become challengers
 			if ($("#challengers").children().length == 0) {
 
@@ -241,7 +241,7 @@ $(document).ready(function(){
 
 				// play victor song from player's song list
 				currentSong = $(".player").data('character').randomSong()
-				currentSong.play()
+				currentSong.fade(0, 1, 500)
 				gameStarted = false;
 				
 
@@ -291,7 +291,7 @@ $(document).ready(function(){
 		player.velocity({left: '200px'});
 		player.velocity(
 			{
-				translateY: 80,
+				translateY: 85,
 				rotateZ: "360",
 				scale: 1.5
 				
@@ -304,7 +304,21 @@ $(document).ready(function(){
 
 	}
 
+// Scene Changes /////////////////////////////////////////////////////////
 
+	var chooseCharacterScene = function(){
+
+
+	}
+
+	var fightScene = function(){
+		$('#main-container').empty();
+		$('#main-container').append('<div class="row" id="character-row-1">' + 
+			'<div class="col-md-3" id="playerSide"></div>' +
+			'<!-- Empty space between characters --><div class="col-md-6"' +
+			'id="centerSpace"></div><div class="col-md-3" id="challengerSide"></div></div>')
+
+	}
 
 
 
@@ -321,6 +335,7 @@ $(document).ready(function(){
 		console.log("character clicked")
 		if(characterSelected == false){ // if the player has not yet chosen a character
 			characterSelected = true;
+
 
 
 			// Fade out the current music
@@ -365,6 +380,9 @@ $(document).ready(function(){
 
 			// clear the text area
 			$("#text-area").empty();
+
+
+
 		}else if (characterSelected == true && $(this).data('status') != 'player' == 'player'){
 			console.log("display tooltip")
 			// display tooltip
@@ -471,7 +489,7 @@ $(document).ready(function(){
 
 
 // Initialize Sounds /////////////////////////////////////////////////////
-console.log('starting')
+	console.log('starting')
 	soundInit()
 	$('#introModal').modal({backdrop: true});
 	currentSong = whatAFoolBelieves;
