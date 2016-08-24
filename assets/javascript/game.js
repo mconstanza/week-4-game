@@ -361,6 +361,39 @@ $(document).ready(function(){
 	}
 
 
+	var chooseCharacterButtonPressed = function(character){
+
+		characterSelected = true;
+
+		// Fade out the current music
+		if (currentSong ){
+			currentSong.fade(1, 0, 2000)
+			
+		}
+
+
+		// assign this DOM element the status of player
+		character.data("status", 'player')
+
+		// assign the other elements the status of challenger if they aren't the player
+		for (var i = 0; i < $('.character').length; i++){
+			if ($('.character').data("status") != 'player'){
+				$('.character').data("status", 'challenger')
+			}
+		}
+
+		challengers.append($('.character')) // send all characters to the challenger section
+
+		$('#character-select').empty(); // clear all characters from character select
+		$("#playerSide").prepend(character); // send the chosen character to the deck to fight!
+		character.addClass("player") // add player class to chosen character
+
+		// clear the text area and tell player to choose opponent
+		$("#text-area").empty();
+		$("#text-area").prepend("<p>Choose your opponent!</p>")
+	}
+
+
 
 // Animations ////////////////////////////////////////////////////////////
 	var winAnimation = function(player, playerImg) {
@@ -405,44 +438,62 @@ $(document).ready(function(){
 	$('#new-game').on("click", startGame)
 		
 
+	// Character Select Modal Button Clicks
+
+	$('#chooseMichaelMcDonald').on('click', function(){
+
+		chooseCharacterButtonPressed($('#michaelMcDonald'))
+	});
+
+	$('#chooseHallAndOates').on('click', function(){
+
+		chooseCharacterButtonPressed($('#hallAndOates'))
+	});
+
+	$('#chooseToto').on('click', function(){
+
+		chooseCharacterButtonPressed($('#toto'))
+	});
+
+	$('#chooseChrisCross').on('click', function(){
+
+		chooseCharacterButtonPressed($('#chrisCross'))
+	});
+
+	$('#chooseKennyLoggins').on('click', function(){
+
+		chooseCharacterButtonPressed($('#kennyLoggins'))
+	});
+
+
 
 	// when a character's image is clicked
 	$('#characterRow div').on("click", '.character', function(){
 
 		console.log("character clicked")
 		if(characterSelected == false){ // if the player has not yet chosen a character
-			characterSelected = true;
+			
+			console.log(this.id)
 
-
-
-			// Fade out the current music
-			if (currentSong ){
-				currentSong.fade(1, 0, 2000)
-				
-			}
-
-
-			// assign this DOM element the status of player
-			$(this).data("status", 'player')
-
-			// assign the other elements the status of challenger if they aren't the player
-			for (var i = 0; i < $('.character').length; i++){
-				if ($('.character').data("status") != 'player'){
-					$('.character').data("status", 'challenger')
-				}
-			}
-
-			challengers.append($('.character')) // send all characters to the challenger section
-
-			$('#character-select').empty(); // clear all characters from character select
-			$("#playerSide").prepend(this); // send the chosen character to the deck to fight!
-			$(this).addClass("player") // add player class to chosen character
-
-
-
-			// clear the text area and tell player to choose opponent
-			$("#text-area").empty();
-			$("#text-area").prepend("<p>Choose your opponent!</p>")
+			switch (this.id){
+				case 'michaelMcDonald':
+					console.log('McDonald Case');
+					$('#michaelMcDonaldModal').modal();
+					break;
+				case 'hallAndOates':
+					$('#hallAndOatesModal').modal();
+					break;
+				case 'toto':
+					$('#totoModal').modal();
+					break;
+				case 'chrisCross':
+					$('#chrisCrossModal').modal();
+					break;
+				case 'kennyLoggins':
+					$('#kennyLogginsModal').modal();
+					break;
+			};
+					
 
 			// if the player has chosen a character but not a challenger
 		}else if (challengerSelected == false && characterSelected == true && $(this).data('status') != 'player'){ 
@@ -452,11 +503,11 @@ $(document).ready(function(){
 			$("#challengerSide").append(this); // send the challenger to the deck to fight!
 
 			// play a random song from the chosen challenger's song list
-			currentSong.fade(1, 0, 800)
-			currentSong = $(".chosen-challenger").data('character').randomSong()
+			currentSong.stop();
+			currentSong = $(".chosen-challenger").data('character').randomSong();
 			window.setTimeout(function() {
 				currentSong.play()
-			}, 800)
+			}, 800);
 
 			// clear the text area
 			$("#text-area").empty();
