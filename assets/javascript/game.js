@@ -17,23 +17,30 @@ $(document).ready(function(){
 	var yaMoBeThere;
 	var youMakeMyDreams;
 
-	// Images ///////////////
-	var michaelMcDonaldImg = "assets/images/michaelmcdonald.jpg";
+	var ccGo;
+	var hoAah;
+	var hoNoCanDo;
+	var hoOoh;
+	var klDzRiff;
+	var mmI;
+	var mmOoh;
+	var mmYaMo;
+	var richBitch;
+	var totoWhoa;
 
+	var attackSound;
+
+	// Images ///////////////
+
+	var michaelMcDonaldImg = "assets/images/michaelmcdonald.jpg";
 
 	var hallAndOatesImg = "assets/images/hallandoates.jpg";
 
-
 	var totoImg = "assets/images/toto.jpg";
-
 
 	var chrisCrossImg = "assets/images/chrisCross.jpg";
 
-
 	var kennyLogginsImg = "assets/images/kennyloggins.jpg";
-
-
-
 
 // Game variables ///////////////////////////////////////////////////////////
 	
@@ -46,6 +53,7 @@ $(document).ready(function(){
 	var challengerPosition;
 
 // Define regions of game display ////////////////////////////////////////
+
 	var charSelect = $("#character-select");
 	var charRowOne = $("#character-row-1");
 	var charRowTwo = $("#character-row-2");
@@ -61,7 +69,6 @@ $(document).ready(function(){
 	var characters = $('.character');
 	var player = $('.player');
 	
-
 	var michaelMcDonald;
 	var hallAndOates;
 	var toto; 
@@ -76,7 +83,7 @@ $(document).ready(function(){
 
 	var soundInit = function() {
 
-
+	// Music ////////////////////////////////////////////////
 		dangerZone = new Howl({
 			src: ["assets/sounds/dangerzone.mp3"]
 		});
@@ -111,21 +118,74 @@ $(document).ready(function(){
 			src: ["assets/sounds/youmakemydreams.mp3"]
 		});
 
+
+	// Battle Sounds ////////////////////////////////////
+
+		 ccGo= new Howl({
+			src: ["assets/sounds/ccGo.mp3"],
+			volume: 0.5
+		});
+		 hoAah= new Howl({
+			src: ["assets/sounds/hoAah.mp3"],
+			volume: 0.5
+
+		});
+		 hoNoCanDo= new Howl({
+			src: ["assets/sounds/hoNoCanDo.mp3"],
+			volume: 0.5
+		});
+		 hoOoh= new Howl({
+			src: ["assets/sounds/hoOoh.mp3"],
+			volume: 0.5
+		});
+		 klDzRiff= new Howl({
+			src: ["assets/sounds/klDzRiff.mp3"],
+			volume: 0.5
+		});
+		 mmI= new Howl({
+			src: ["assets/sounds/mmI.mp3"],
+			volume: 0.5
+		});
+		 mmOoh= new Howl({
+			src: ["assets/sounds/ymmOoh.mp3"],
+			volume: 0.5
+		});
+		 mmYaMo= new Howl({
+			src: ["assets/sounds/mmYaMo.mp3"],
+			volume: 0.5
+		});
+		 richBitch= new Howl({
+			src: ["assets/sounds/richBitch.mp3"],
+			volume: 0.5
+		});
+		 totoWhoa= new Howl({
+			src: ["assets/sounds/totoWhoa.mp3"],
+			volume: 0.5
+		});
+
 		// Song arrays //////////////////////////////////////////////////////
 		mcDonaldSongArray = [ whatAFoolBelieves, yaMoBeThere, iKeepForgettin ];
 		hallAndOatesSongArray = [ iCantGoForThat, richGirl, saraSmile, youMakeMyDreams];
 		totoSongArray = [ rosanna, holdTheLine ];
 		chrisCrossSongArray = [ rideLikeTheWind ];
 		kennyLogginsSongArray = [ dangerZone ];
+	
 
+		// Battle Sound Arrays ////////////////////////////////////
+		mcDonaldSoundArray = [ mmI, mmOoh, mmYaMo];
+		hallAndOatesSoundArray = [ hoAah, hoNoCanDo, hoOoh, richBitch];
+		totoSoundArray = [ totoWhoa];
+		ccSoundArray = [ ccGo ];
+		kennyLogginsSoundArray = [klDzRiff];
+	};	
 
-	}
 // Classes/Objects /////////////////////////////////////////////////////////////
-	function character(name, image, songArray, hp, ap, cp) {
+	function character(name, image, songArray, soundArray, hp, ap, cp) {
 
 		this.name = name;
 		this.image = image;
 		this.songArray = songArray;
+		this.soundArray = soundArray;
 		this.hp = hp; // health points
 		this.ap = ap; // attack power
 		this.cp = cp; // counter-attack power
@@ -133,6 +193,11 @@ $(document).ready(function(){
 		this.randomSong = function() {
 			var song = Math.floor((Math.random() * this.songArray.length));
 			return songArray[song];
+		}
+
+		this.randomSound = function() {
+			var sound = Math.floor((Math.random() * this.soundArray.length));
+			return soundArray[sound];
 		}
 	}
 
@@ -150,11 +215,11 @@ $(document).ready(function(){
 
 			$('#playerSide').empty();
 			// create character objects
-			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, 1000, 20, 50);
-			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, 800, 25, 30);
-			toto = new character("Toto", totoImg, totoSongArray, 900, 35, 25);
-			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, 850, 25, 35);
-			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, 500, 40, 25);
+			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, mcDonaldSoundArray, 1000, 20, 50);
+			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, hallAndOatesSoundArray, 800, 25, 30);
+			toto = new character("Toto", totoImg, totoSongArray, totoSoundArray, 900, 35, 25);
+			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, ccSoundArray, 850, 25, 35);
+			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, kennyLogginsSoundArray, 500, 40, 25);
 
 			
 			// clear old displays
@@ -205,8 +270,6 @@ $(document).ready(function(){
 		}
 	}
 
-
-
 	var winCheck = function(player, challenger) {
 		// if player dies
 		if (player.data('character').hp <= 0) {
@@ -227,8 +290,11 @@ $(document).ready(function(){
 			$("#text-area").prepend("<p>Challenger defeated!</p>");
 
 			// stop the currently playing song
-		
-			currentSong.stop();
+			currentSong.fade(1, 0, 800)
+			//currentSong.stop();
+			currentSong = currentSong = $(".player").data('character').randomSong();
+			currentSong.play();
+			//currentSong.fade(0, 1,800)
 
 
 
@@ -241,8 +307,10 @@ $(document).ready(function(){
 				winAnimation(player)
 
 				// play victor song from player's song list
+				currentSong.stop();
 				currentSong = $(".player").data('character').randomSong()
-				currentSong.fade(0, 1, 500)
+
+				currentSong.play();
 				gameStarted = false;
 				
 
@@ -376,8 +444,10 @@ $(document).ready(function(){
 			$("#challengerSide").append(this); // send the challenger to the deck to fight!
 
 			// play a random song from the chosen challenger's song list
+			currentSong.fade(1, 0, 800)
 			currentSong = $(".chosen-challenger").data('character').randomSong()
 			currentSong.play()
+			//currentSong.fade(0,1, 800)
 
 			// clear the text area
 			$("#text-area").empty();
@@ -404,6 +474,13 @@ $(document).ready(function(){
 
 			// player attack increases each turn 
 			var playerAttack = $('.player').data('character').ap * turn;
+
+			// play attack sound
+			console.log($('.player').data('character').soundArray)
+			console.log($('.player').data('character').randomSound());
+			attackSound = $('.player').data('character').randomSound();
+			attackSound.volume = 0.1;
+			//attackSound.play()
 
 			// animate the player and challenger
 			$('.player').velocity({left: '100px'})
@@ -440,6 +517,11 @@ $(document).ready(function(){
 			// challenger counter-attack
 			window.setTimeout(function(){
 				var challengerAttack = $('.chosen-challenger').data('character').cp;
+
+				// play attack sound
+				attackSound = $('.chosen-challenger').data('character').randomSound();
+				attackSound.volume = 0.1;
+				//attackSound.play()
 
 				// animate counter-attack
 
