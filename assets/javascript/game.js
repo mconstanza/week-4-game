@@ -43,6 +43,7 @@ $(document).ready(function(){
 	var currentSong;
 	var attackClicked = false
 	var turn = 1;
+	var challengerPosition;
 
 // Define regions of game display ////////////////////////////////////////
 	var charSelect = $("#character-select");
@@ -453,7 +454,11 @@ $(document).ready(function(){
 
 				$('.player').velocity({opacity: 1}, 'fast')
 
-				$('.chosen-challenger').velocity({left: '0px'}, 'fast');
+				// get challengers original position to set animation back to
+
+				challengerPosition = $('#challengerSide .chosen-challenger').css('left' );
+
+				$('.chosen-challenger').velocity({left: challengerPosition}, 'fast');
 
 				// subtract counter-attack from player hp
 				$('.player').data('character').hp -= challengerAttack;

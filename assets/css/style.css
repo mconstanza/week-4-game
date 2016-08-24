@@ -20,6 +20,13 @@ img {
 	border: 2px solid white;
 }
 
+title {
+	font-family: "Righteous";
+}
+
+
+/* Intro Modal *****************************************************************************/
+
 
 #introModal {
 	position: fixed;
@@ -32,7 +39,7 @@ img {
 }
 
 .modal-content{
-	opacity: .7;
+	opacity: .8;
 	color: #fff;
 	font-family: 'Righteous';
 	 background-color: black;
@@ -42,28 +49,24 @@ img {
 	text-align: center;
 }
 
+
+
+/* Player Select *********************************************************************/
+
 #character-select, #challengers  {
-	margin-top: 70px;
-}
-
-
-#deck {
-	margin-top: 70px;
-
-}
-
-#character-row-1 {
-	height: 200px;
-}
-
-#deck img{
-	width: 120%;
-	float:left;
+	margin-top: 40px;
 }
 
 #character-select img {
 	width: 40%;
 	margin: 10px 0;
+}
+
+
+/* Opponent Select ******************************************************************/
+
+#challengers{
+	right: -10%;
 }
 
 
@@ -73,29 +76,55 @@ img {
 
 }
 
+/* Deck - Fight Area ******************************************************************/
+
+#deck {
+	margin-top: 40px;
+
+}
+
+#deck img{
+	width: 100%;
+	float:left;
+}
+
+#character-row-1 {
+	height: 260px;
+}
+
+
+#playerSide div {
+	width: 100%;
+}
 
 #playerSide img {
-	width: 80%;
+	width: 140%;
+}
+
+
+#challengerSide div {
+	left: -30px;
+	width: 100%;
 }
 
 #challengerSide img {
-	width: 80%;
-}
-#challengers{
-	/*text-align: right;*/
+	
+	width: 140%;
 }
 
-nav {
-	z-index: 1;
-	opacity: .3;
+
+/* Individual Character Positioning on Challenger Side *********************************/
+
+#challengerSide #hallAndOates {
+	left: -27%;
 }
 
-#title {
-	font-family: "Righteous";
-}
+
+/* Text Area ***************************************************************************/
 
 #text-area {
-	height: 300px;
+	/*height: 250px;*/
+	height: 30%;
 	font-size: 16px;
 
 	background-color: white;
@@ -110,9 +139,11 @@ nav {
 }
 
 #text-area hr {
-	margin: 2px 0;
+	margin: 1px 0;
 }
 
+
+/* Character Portraits ********************************************************************/
 
 .character {
 	position: relative;
@@ -137,7 +168,5 @@ nav {
 	top: 35px;
 	margin: 5px 0;
 	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-	
-
 }
 
