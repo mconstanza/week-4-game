@@ -414,54 +414,56 @@ $(document).ready(function(){
 
 	}
 
-// Scene Changes /////////////////////////////////////////////////////////
+	function stopAll(audio) {
+		//currentSong.stop()
+	  var i = audio.length;
 
-	var chooseCharacterScene = function(){
-
-
+		while (i--) {
+		   audio[i].pause();
+		}
 	}
-
-	var fightScene = function(){
-		$('#main-container').empty();
-		$('#main-container').append('<div class="row" id="character-row-1">' + 
-			'<div class="col-md-3" id="playerSide"></div>' +
-			'<!-- Empty space between characters --><div class="col-md-6"' +
-			'id="centerSpace"></div><div class="col-md-3" id="challengerSide"></div></div>')
-
-	}
-
-
-
 
 // On Click Functions //////////////////////////////////////////////////
 
-	$('#new-game').on("click", startGame)
-		
+	$('#new-game').on("click", function(){
+		startGame();
+	});
+
+
+	$('audio').on('playing', function(e) {
+		currentSong.stop();
+		for(var i = 0, len = $('audio').length; i < len;i++){
+        	if($('audio').get(i) != e.target){
+            	$('audio').get(i).pause();
+        	}
+   		}
+	})
 
 	// Character Select Modal Button Clicks
 
 	$('#chooseMichaelMcDonald').on('click', function(){
+		//stopAll($('audio'))
 
 		chooseCharacterButtonPressed($('#michaelMcDonald'))
 	});
 
 	$('#chooseHallAndOates').on('click', function(){
-
+		//stopAll($('audio'))
 		chooseCharacterButtonPressed($('#hallAndOates'))
 	});
 
 	$('#chooseToto').on('click', function(){
-
+		//stopAll($('audio'))
 		chooseCharacterButtonPressed($('#toto'))
 	});
 
 	$('#chooseChrisCross').on('click', function(){
-
+		//stopAll($('audio'))
 		chooseCharacterButtonPressed($('#chrisCross'))
 	});
 
 	$('#chooseKennyLoggins').on('click', function(){
-
+		//stopAll($('audio'))
 		chooseCharacterButtonPressed($('#kennyLoggins'))
 	});
 
@@ -477,21 +479,64 @@ $(document).ready(function(){
 
 			switch (this.id){
 				case 'michaelMcDonald':
-					console.log('McDonald Case');
+					$('#michaelMcDonaldModal div .hp').append("HP: " + 
+						$('#michaelMcDonald').data('character').hp)
+
+					$('#michaelMcDonaldModal div .ap').append("AP: " + 
+						$('#michaelMcDonald').data('character').ap)
+
+					$('#michaelMcDonaldModal div .cp').append("CP: " + 
+						$('#michaelMcDonald').data('character').cp)
 					$('#michaelMcDonaldModal').modal();
 					break;
+
 				case 'hallAndOates':
+					$('#hallAndOatesModal div .hp').append("HP: " + 
+						$('#hallAndOates').data('character').hp)
+
+					$('#hallAndOatesModal div .ap').append("AP: " + 
+						$('#hallAndOates').data('character').ap)
+
+					$('#hallAndOatesModal div .cp').append("CP: " + 
+						$('#hallAndOates').data('character').cp)
 					$('#hallAndOatesModal').modal();
 					break;
+
 				case 'toto':
+					$('#totoModal div .hp').append("HP: " + 
+						$('#toto').data('character').hp)
+
+					$('#toto div .ap').append("AP: " + 
+						$('#toto').data('character').ap)
+
+					$('#totoModal div .cp').append("CP: " + 
+						$('#toto').data('character').cp)
 					$('#totoModal').modal();
 					break;
+
 				case 'chrisCross':
+					$('#chrisCrossModal div .hp').append("HP: " + 
+						$('#chrisCross').data('character').hp)
+
+					$('#chrisCrossModal div .ap').append("AP: " + 
+						$('#chrisCross').data('character').ap)
+
+					$('#chrisCrossModal div .cp').append("CP: " + 
+						$('#chrisCross').data('character').cp)
 					$('#chrisCrossModal').modal();
 					break;
+
 				case 'kennyLoggins':
+					$('#kennyLogginsModal div .hp').append("HP: " + 
+						$('#kennyLoggins').data('character').hp)
+
+					$('#kennyLogginsModal div .ap').append("AP: " + 
+						$('#kennyLoggins').data('character').ap)
+
+					$('#kennyLogginsModal div .cp').append("CP: " + 
+						$('#kennyLoggins').data('character').cp)
 					$('#kennyLogginsModal').modal();
-					break;
+					
 			};
 					
 
@@ -503,7 +548,8 @@ $(document).ready(function(){
 			$("#challengerSide").append(this); // send the challenger to the deck to fight!
 
 			// play a random song from the chosen challenger's song list
-			currentSong.stop();
+			if(currentSong){ currentSong.stop()};
+
 			currentSong = $(".chosen-challenger").data('character').randomSong();
 			window.setTimeout(function() {
 				currentSong.play()
@@ -529,7 +575,7 @@ $(document).ready(function(){
 
 	});
 
-
+	// Attack! ///////////////////////
 	attack.on("click", function(){
 
 		// check if player has selected both player and challenger characters
@@ -643,10 +689,13 @@ $(document).ready(function(){
 	});
 
 
-// Initialize Sounds /////////////////////////////////////////////////////
-	console.log('starting')
+	// Initialize Sounds /////////////////////////////////////////////////////
 	soundInit()
+
+	// Display intro modal
 	$('#introModal').modal({backdrop: true});
+
+	// Play intro music
 	currentSong = whatAFoolBelieves;
 	currentSong.play();
 

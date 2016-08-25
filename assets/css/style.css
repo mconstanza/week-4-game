@@ -33,8 +33,8 @@ title {
 	background: url("../images/yacht2.jpg") no-repeat center center fixed;
 }
 
-.modal-body img{
-	width: 15%;
+#introModal img{
+	width: 25%;
 	margin: 0 10px;
 }
 
@@ -49,6 +49,27 @@ title {
 	text-align: center;
 }
 
+/* Character Modals *****************************************************************/
+
+.modalImg {
+	display: inline-block;
+	vertical-align: top;
+	width: 25%;
+}
+
+.statsDiv {
+	text-align: left;
+	display: inline-block;
+}
+
+.statsDiv p{
+	font-size: 20px;
+}
+
+.modalSongList {
+	width:100%;
+    text-align: center;
+}
 
 
 /* Player Select *********************************************************************/
