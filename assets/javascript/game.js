@@ -484,6 +484,9 @@ $(document).ready(function(){
 
 			switch (this.id){
 				case 'michaelMcDonald':
+					$('.hp').empty()
+					$('.ap').empty()
+					$('.cp').empty()
 					$('#michaelMcDonaldModal div .hp').append("HP: " + 
 						$('#michaelMcDonald').data('character').hp)
 
@@ -496,6 +499,9 @@ $(document).ready(function(){
 					break;
 
 				case 'hallAndOates':
+					$('.hp').empty()
+					$('.ap').empty()
+					$('.cp').empty()
 					$('#hallAndOatesModal div .hp').append("HP: " + 
 						$('#hallAndOates').data('character').hp)
 
@@ -508,10 +514,13 @@ $(document).ready(function(){
 					break;
 
 				case 'toto':
+					$('.hp').empty()
+					$('.ap').empty()
+					$('.cp').empty()
 					$('#totoModal div .hp').append("HP: " + 
 						$('#toto').data('character').hp)
 
-					$('#toto div .ap').append("AP: " + 
+					$('#totoModal div .ap').append("AP: " + 
 						$('#toto').data('character').ap)
 
 					$('#totoModal div .cp').append("CP: " + 
@@ -520,6 +529,9 @@ $(document).ready(function(){
 					break;
 
 				case 'chrisCross':
+					$('.hp').empty()
+					$('.ap').empty()
+					$('.cp').empty()
 					$('#chrisCrossModal div .hp').append("HP: " + 
 						$('#chrisCross').data('character').hp)
 
@@ -532,6 +544,9 @@ $(document).ready(function(){
 					break;
 
 				case 'kennyLoggins':
+					$('.hp').empty()
+					$('.ap').empty()
+					$('.cp').empty()
 					$('#kennyLogginsModal div .hp').append("HP: " + 
 						$('#kennyLoggins').data('character').hp)
 
