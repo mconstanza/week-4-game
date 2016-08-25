@@ -288,6 +288,9 @@ $(document).ready(function(){
 			$("#text-area").empty();
 			
 			$("#text-area").prepend("<p>Challenger defeated!</p>");
+			window.setTimeout(function(){
+				$("#text-area").append("<p>There can only be one!</p>");
+			}, 800)
 
 			// stop the currently playing song
 			currentSong.fade(1, 0, 800)
@@ -398,11 +401,13 @@ $(document).ready(function(){
 // Animations ////////////////////////////////////////////////////////////
 	var winAnimation = function(player, playerImg) {
 		console.log("win animation playing")
-		player.velocity({left: '200px'});
+		player
+			.velocity({left: '200px'})
+			.velocity({top: '-50px'});
 		player.velocity(
 			{
 				translateY: 85,
-				rotateZ: "360",
+				//rotateZ: "360",
 				scale: 1.5
 				
 			},
@@ -597,6 +602,7 @@ $(document).ready(function(){
 			//attackSound.play()
 
 			// animate the player and challenger
+			$('.player').velocity({skewX: -25}, 'fast')
 			$('.player').velocity({left: '100px'})
 			$('.chosen-challenger').velocity({opacity: .7}, 'fast');
 
@@ -607,7 +613,8 @@ $(document).ready(function(){
 			$('.chosen-challenger').velocity({opacity: 1}, 'fast');
 
 			$('.player').velocity({left: '0px'}, 'fast');
-			
+			$('.player').velocity({skewX: 0}
+)			
 				
 			
 
@@ -638,7 +645,7 @@ $(document).ready(function(){
 				//attackSound.play()
 
 				// animate counter-attack
-
+				$('.chosen-challenger').velocity({skewX: 25}, 'fast')
 				$('.chosen-challenger').velocity({left: '-100px'});
 
 				$('.player').velocity({opacity: .7}, 'fast');
@@ -650,11 +657,14 @@ $(document).ready(function(){
 
 				$('.player').velocity({opacity: 1}, 'fast')
 
+
 				// get challengers original position to set animation back to
 
 				challengerPosition = $('#challengerSide .chosen-challenger').css('left' );
 
 				$('.chosen-challenger').velocity({left: challengerPosition}, 'fast');
+
+				$('.chosen-challenger').velocity({skewX: 0})
 
 				// subtract counter-attack from player hp
 				$('.player').data('character').hp -= challengerAttack;
