@@ -16,6 +16,12 @@ $(document).ready(function(){
 	var whatAFoolBelieves;
 	var yaMoBeThere;
 	var youMakeMyDreams;
+	var africa;
+	var meetMeHalfway;
+	var neverBeTheSame;
+	var sailing;
+	var thisIsIt;
+	var pinaColada;
 
 	var ccGo;
 	var hoAah;
@@ -118,6 +124,30 @@ $(document).ready(function(){
 			src: ["assets/sounds/youmakemydreams.mp3"]
 		});
 
+		africa = new Howl({
+			src: ["assets/sounds/africa.mp3"]
+		});
+
+		meetMeHalfway = new Howl({
+			src: ["assets/sounds/meetmehalfway.mp3"]
+		});
+
+		neverBeTheSame = new Howl({
+			src: ["assets/sounds/neverbethesame.mp3"]
+		});
+
+		thisIsIt = new Howl({
+			src: ["assets/sounds/thisisit.mp3"]
+		});
+
+		sailing = new Howl({
+			src: ["assets/sounds/sailing.mp3"]
+		});
+
+		pinaColada = new Howl({
+			src: ["assets/sounds/pinacolada.mp3"]
+		});
+
 
 	// Battle Sounds ////////////////////////////////////
 
@@ -166,9 +196,9 @@ $(document).ready(function(){
 		// Song arrays //////////////////////////////////////////////////////
 		mcDonaldSongArray = [ whatAFoolBelieves, yaMoBeThere, iKeepForgettin ];
 		hallAndOatesSongArray = [ iCantGoForThat, richGirl, saraSmile, youMakeMyDreams];
-		totoSongArray = [ rosanna, holdTheLine ];
-		chrisCrossSongArray = [ rideLikeTheWind ];
-		kennyLogginsSongArray = [ dangerZone ];
+		totoSongArray = [ rosanna, holdTheLine, africa ];
+		chrisCrossSongArray = [ rideLikeTheWind, sailing, neverBeTheSame ];
+		kennyLogginsSongArray = [ dangerZone, thisIsIt, meetMeHalfway ];
 	
 
 		// Battle Sound Arrays ////////////////////////////////////
@@ -214,12 +244,14 @@ $(document).ready(function(){
 			gameStarted = true;
 
 			$('#playerSide').empty();
+			$('#challengerSide').empty();
+			$('#challengers').empty();
 			// create character objects
-			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, mcDonaldSoundArray, 1000, 15, 50);
-			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, hallAndOatesSoundArray, 800, 25, 30);
-			toto = new character("Toto", totoImg, totoSongArray, totoSoundArray, 900, 20, 25);
-			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, ccSoundArray, 850, 35, 35);
-			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, kennyLogginsSoundArray, 500, 40, 25);
+			michaelMcDonald = new character("Michael McDonald", michaelMcDonaldImg, mcDonaldSongArray, mcDonaldSoundArray, 1000, 20, 85);
+			hallAndOates = new character("Hall and Oates", hallAndOatesImg, hallAndOatesSongArray, hallAndOatesSoundArray, 800, 35, 65);
+			toto = new character("Toto", totoImg, totoSongArray, totoSoundArray, 900, 30, 50);
+			chrisCross = new character("Christopher Cross", chrisCrossImg, chrisCrossSongArray, ccSoundArray, 850, 40, 35);
+			kennyLoggins = new character("Kenny Loggins", kennyLogginsImg, kennyLogginsSongArray, kennyLogginsSoundArray, 600, 50, 75);
 
 			
 			// clear old displays
@@ -273,17 +305,26 @@ $(document).ready(function(){
 	var winCheck = function(player, challenger) {
 		// if player dies
 		if (player.data('character').hp <= 0) {
-
+			player.remove();
 			// clear the text area
 			$("#text-area").empty();
 			
 			$("#text-area").prepend("<p>You died!</p>");
-			
-			// logic to end game
+			loseAnimation(challenger);
+		
+
+			// play victory song from opponent's song list
+				window.setTimeout(function(){
+					currentSong.stop();
+					currentSong = $(".chosen-challenger").data('character').randomSong();
+					currentSong.play();}, 800);
+
+			// allow new game to be played
+			gameStarted = false;
 
 		// if challenger dies	
 		}else if (challenger.data('character').hp <= 0) {
-			challenger.remove()
+			challenger.remove();
 			// clear the text area
 			$("#text-area").empty();
 			
@@ -297,9 +338,6 @@ $(document).ready(function(){
 
 			currentSong = currentSong = $(".player").data('character').randomSong();
 			
-
-
-
 
 			// check if there are any other characters left to become challengers
 			if ($("#challengers").children().length == 0) {
@@ -419,6 +457,26 @@ $(document).ready(function(){
 
 	}
 
+	var loseAnimation = function(player, playerImg) {
+		console.log("win animation playing")
+		player
+			.velocity({left: '-245px'})
+			.velocity({top: '-50px'});
+		player.velocity(
+			{
+				translateY: 85,
+				//rotateZ: "360",
+				scale: 1.5
+				
+			},
+			{
+				duration: 2000,
+				easing: 'linear',
+				loop: true
+			});
+
+	}
+
 	function stopAll(audio) {
 		//currentSong.stop()
 	  var i = audio.length;
@@ -484,7 +542,7 @@ $(document).ready(function(){
 
 			switch (this.id){
 				case 'michaelMcDonald':
-					$('.hp').empty()
+					$('.statsDiv .hp').empty()
 					$('.ap').empty()
 					$('.cp').empty()
 					$('#michaelMcDonaldModal div .hp').append("HP: " + 
@@ -499,7 +557,7 @@ $(document).ready(function(){
 					break;
 
 				case 'hallAndOates':
-					$('.hp').empty()
+					$('.statsDiv .hp').empty()
 					$('.ap').empty()
 					$('.cp').empty()
 					$('#hallAndOatesModal div .hp').append("HP: " + 
@@ -514,7 +572,7 @@ $(document).ready(function(){
 					break;
 
 				case 'toto':
-					$('.hp').empty()
+					$('.statsDiv .hp').empty()
 					$('.ap').empty()
 					$('.cp').empty()
 					$('#totoModal div .hp').append("HP: " + 
@@ -529,7 +587,7 @@ $(document).ready(function(){
 					break;
 
 				case 'chrisCross':
-					$('.hp').empty()
+					$('.statsDiv .hp').empty()
 					$('.ap').empty()
 					$('.cp').empty()
 					$('#chrisCrossModal div .hp').append("HP: " + 
@@ -544,7 +602,7 @@ $(document).ready(function(){
 					break;
 
 				case 'kennyLoggins':
-					$('.hp').empty()
+					$('.statsDiv .hp').empty()
 					$('.ap').empty()
 					$('.cp').empty()
 					$('#kennyLogginsModal div .hp').append("HP: " + 
@@ -569,9 +627,10 @@ $(document).ready(function(){
 
 			// play a random song from the chosen challenger's song list
 			if(currentSong){ currentSong.stop()};
-
+			stopAll($('audio'))
 			currentSong = $(".chosen-challenger").data('character').randomSong();
 			window.setTimeout(function() {
+				stopAll($('audioaudio'))
 				currentSong.play()
 			}, 800);
 
@@ -585,12 +644,6 @@ $(document).ready(function(){
 				$("#text-area").empty();
 				attackClicked = false;
 			}, 1800)
-
-
-
-		}else if (characterSelected == true && $(this).data('status') != 'player' == 'player'){
-			console.log("display tooltip")
-			// display tooltip
 		}
 
 	});
@@ -721,7 +774,7 @@ $(document).ready(function(){
 	$('#introModal').modal({backdrop: true});
 
 	// Play intro music
-	currentSong = whatAFoolBelieves;
+	currentSong = pinaColada;
 	currentSong.play();
 
 
